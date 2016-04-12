@@ -64,6 +64,8 @@ public class MainActivity extends BaseActivity {
 		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(1)));
 		tabLayout.addTab(tabLayout.newTab().setText(titleList.get(2)));
 
+		//viewpager缓存两页
+		viewPager.setOffscreenPageLimit(2);
 		viewPager.setAdapter(pagerAdapter);
 		tabLayout.setupWithViewPager(viewPager);
 	}

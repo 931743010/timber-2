@@ -10,18 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chen.timber.R;
+
 /**
  * Created by chen on 2016/4/4.
  */
 public class SongFragment extends BaseFragment{
 	@Override
 	protected View initView() {
-		TextView tv=new TextView(mContext);
-		tv.setGravity(Gravity.CENTER);
-		tv.setText("歌曲");
-		tv.setTextSize(30);
-		tv.setTextColor(Color.CYAN);
-		return tv;
+		View view = View.inflate(mContext, R.layout.song_fragment_layout, null);
+		return view;
 	}
 
 }
