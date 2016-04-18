@@ -1,10 +1,10 @@
 package com.chen.timber.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by chen on 2016/4/4.
@@ -27,5 +27,9 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 	protected <T extends View> T getView(int id){
 		return (T)findViewById(id);
+	}
+
+	protected void showToast(String text) {
+		Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
 	}
 }

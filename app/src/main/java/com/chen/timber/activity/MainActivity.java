@@ -1,14 +1,11 @@
 package com.chen.timber.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.chen.timber.R;
 import com.chen.timber.adapter.TimberViewPagerAdapter;
@@ -16,6 +13,7 @@ import com.chen.timber.fragment.AlbumFragment;
 import com.chen.timber.fragment.BaseFragment;
 import com.chen.timber.fragment.NetFragment;
 import com.chen.timber.fragment.SongFragment;
+import com.chen.timber.moudle.MusicInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +49,14 @@ public class MainActivity extends BaseActivity {
 		titleList.add("专辑");
 		titleList.add("艺术家");
 
-		fragmentList = new ArrayList<>();
+		ArrayList<MusicInfo> musicList = getIntent().getParcelableArrayListExtra("musicList");
+		Bundle data = new Bundle();
+		data.putParcelableArrayList("musicList",musicList);
 		SongFragment songFragment=new SongFragment();
+		songFragment.setArguments(data);
+
+		fragmentList = new ArrayList<>();
+
 		AlbumFragment albumFragment=new AlbumFragment();
 		NetFragment netFragment=new NetFragment();
 		fragmentList.add(songFragment);
@@ -68,6 +72,9 @@ public class MainActivity extends BaseActivity {
 		viewPager.setOffscreenPageLimit(2);
 		viewPager.setAdapter(pagerAdapter);
 		tabLayout.setupWithViewPager(viewPager);
+		
+
+
 	}
 
 	@Override
