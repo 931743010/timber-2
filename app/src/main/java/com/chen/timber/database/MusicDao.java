@@ -22,7 +22,7 @@ public class MusicDao {
 	public MusicDao(Context context){
 		this.context=context;
 		helper = TimberDBHelper.getInstance(context);
-		db=helper.getReadableDatabase();
+		db=helper.getWritableDatabase();
 	}
 
 	public static final synchronized MusicDao getInstance(final Context context){

@@ -7,7 +7,6 @@ import android.os.Message;
 import com.chen.timber.MusicUtils;
 import com.chen.timber.R;
 import com.chen.timber.database.MusicDao;
-import com.chen.timber.database.TimberDBHelper;
 import com.chen.timber.moudle.MusicInfo;
 
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class SplashActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
-		TimberDBHelper timberDBHelper = new TimberDBHelper(SplashActivity.this);
 		musicDao=MusicDao.getInstance(this);
 		if(musicDao.hasData()){
 			handler.sendEmptyMessage(0);
@@ -47,7 +45,6 @@ public class SplashActivity extends BaseActivity {
 				public void run() {
 					musicUtils = new MusicUtils(SplashActivity.this);
 					musicList = (ArrayList<MusicInfo>) musicUtils.getMusic();
-
 					if(musicList==null){
 
 						runOnUiThread(new Runnable() {
@@ -59,7 +56,7 @@ public class SplashActivity extends BaseActivity {
 						});
 
 					}else {
-//						musicDao.saveMusicInfo(musicList);
+						musicDao.saveMusicInfo(musicList);
 						long endTime=System.currentTimeMillis();
 						if(endTime-startTime<1500){
 							handler.sendEmptyMessageDelayed(0,startTime+200-endTime);

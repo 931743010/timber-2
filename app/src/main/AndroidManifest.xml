@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".activity.MainActivity">
         </activity>
+        <service android:name=".Service.MusicService"></service>
     </application>
 
 </manifest>

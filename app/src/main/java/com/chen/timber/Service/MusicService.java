@@ -29,10 +29,26 @@ public class MusicService extends Service{
 		try {
 			mPlayer.setDataSource(path);
 			mPlayer.prepareAsync();
-			mPlayer.start();
+			mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+				@Override
+				public void onPrepared(MediaPlayer mp) {
+					mp.start();
+				}
+			});
 		}catch (IOException e){
 			ToastUtils.showToast(this,"文件损坏");
 		}
+
+	}
+
+	public void pause() {
+		mPlayer.pause();
+	}
+	public void next() {
+
+	}
+
+	public void last() {
 
 	}
 	@Nullable
@@ -44,6 +60,10 @@ public class MusicService extends Service{
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if (mPlayer != null) {
+			mPlayer.release();
+			mPlayer=null;
+		}
 	}
 	class MusicInfcBinder extends Binder implements MusicInfc {
 		@Override
@@ -53,17 +73,17 @@ public class MusicService extends Service{
 
 		@Override
 		public void pause() {
-
+			MusicService.this.pause();
 		}
 
 		@Override
 		public void next(String path) {
-
+			MusicService.this.next();
 		}
 
 		@Override
 		public void last(String path) {
-
+			MusicService.this.last();
 		}
 	}
 

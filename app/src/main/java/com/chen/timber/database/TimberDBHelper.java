@@ -9,11 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class TimberDBHelper extends SQLiteOpenHelper {
 
-	private static final String TABLE_ALBUM = "album_info";
-	private static final String TABLE_ARTIST = "artist_info";
-	private static final String TABLE_MUSIC = "music_info";
-	private static final String TABLE_FOLDER = "folder_info";
-	private static final String TABLE_FAVORITE = "favorite_info";
+	private static final String TABLE_ALBUM = " album_info";
+	private static final String TABLE_ARTIST = " artist_info";
+	private static final String TABLE_MUSIC = " music_info";
+	private static final String TABLE_FOLDER = " folder_info";
+	private static final String TABLE_FAVORITE = " favorite_info";
 	public static final String DATANAME = "timber.db";
 	private static SQLiteDatabase timberDB;
 	private static TimberDBHelper helper;
