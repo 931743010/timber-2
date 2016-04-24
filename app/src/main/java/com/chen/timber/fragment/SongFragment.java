@@ -40,14 +40,13 @@ public class SongFragment extends BaseFragment {
 		musicList = musicDao.getMusicInfo();
 		SongRecyclerViewAdapter adapter = new SongRecyclerViewAdapter(mContext, musicList);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-		mRecyclerView.setAdapter(adapter);
 		mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.HORIZONTAL_LIST));
+		mRecyclerView.setAdapter(adapter);
 		adapter.setOnRecyclerViewListener(new SongRecyclerViewAdapter.OnRecyclerViewListener() {
 			@Override
 			public void onClick(View view, int position) {
 				currentMusicInfo = musicList.get(position);
-				musicPlayer.play(currentMusicInfo.data);
-				((NotifyUi) mContext).notify(currentMusicInfo);
+				((NotifyUi) mContext).notifyMusic(currentMusicInfo);
 			}
 		});
 		adapter.setOnPopClickListener(new SongRecyclerViewAdapter.onPopClickListener() {
@@ -64,6 +63,6 @@ public class SongFragment extends BaseFragment {
 	}
 
 	public interface NotifyUi {
-		void notify(MusicInfo musicInfo);
+		void notifyMusic(MusicInfo musicInfo);
 	}
 }

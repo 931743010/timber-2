@@ -1,10 +1,13 @@
 package com.chen.timber.activity;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -23,26 +26,8 @@ import com.chen.timber.moudle.MusicInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener,SongFragment.NotifyUi{
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (musicInfo != null) {
-			if(isChecked){
-				musicPlayer.play(musicInfo.data);
-			}else {
-				musicPlayer.pause();
-			}
-		}
+public class MainActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, SongFragment.NotifyUi {
 
-	}
-
-	@Override
-	public void notify(MusicInfo musicInfo) {
-		this.musicInfo=musicInfo;
-		tvSong.setText(musicInfo.musicName);
-		tvAblum.setText(musicInfo.artist);
-		imSong.setImageBitmap(MusicUtils.getArtwork(this,musicInfo.songId,musicInfo.albumId,true));
-	}
 
 	private TabLayout tabLayout;
 	private DrawerLayout drawerLayout;
@@ -57,6 +42,8 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 	private CheckBox cbPlay;
 	private MusicPlayer musicPlayer;
 	private MusicInfo musicInfo;
+	private NavigationView mNavigationView;
+
 	@Override
 	protected void initView() {
 		tabLayout = getView(R.id.tablayout);
@@ -68,31 +55,42 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 		cbPlay = getView(R.id.cb_main_play);
 		tvSong = getView(R.id.tv_main_song);
 		cbPlay.setOnCheckedChangeListener(this);
+		mNavigationView = getView(R.id.navigationview);
+		mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.item_aout_me:
+						startActivity(new Intent(MainActivity.this,AboutMeActivity.class));
+						break;
+					case R.id.item_exit:
+						finish();
+						break;
+				}
+				return true;
+			}
+		});
 	}
 
 	@Override
 	protected void initData() {
 		setSupportActionBar(toolbar);
-		mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,toolbar,0,0);
+		mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
 		mDrawerToggle.syncState();
 		drawerLayout.addDrawerListener(mDrawerToggle);
-		musicPlayer=MusicPlayer.getInstance(this);
+		musicPlayer = MusicPlayer.getInstance(this);
 
 		titleList = new ArrayList<>();
 		titleList.add("歌曲");
 		titleList.add("专辑");
 		titleList.add("艺术家");
 
-//		ArrayList<MusicInfo> musicList = getIntent().getParcelableArrayListExtra("musicList");
-//		Bundle data = new Bundle();
-//		data.putParcelableArrayList("musicList",musicList);
-		SongFragment songFragment=new SongFragment();
-//		songFragment.setArguments(data);
+		SongFragment songFragment = new SongFragment();
 
 		fragmentList = new ArrayList<>();
 
-		AlbumFragment albumFragment=new AlbumFragment();
-		NetFragment netFragment=new NetFragment();
+		AlbumFragment albumFragment = new AlbumFragment();
+		NetFragment netFragment = new NetFragment();
 		fragmentList.add(songFragment);
 		fragmentList.add(albumFragment);
 		fragmentList.add(netFragment);
@@ -110,8 +108,42 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 	}
 
 	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if (musicInfo != null) {
+			if (isChecked) {
+				playMusic();
+			} else {
+				musicPlayer.pause();
+			}
+		}
+
+	}
+
+	private void playMusic() {
+		musicPlayer.play(musicInfo.data);
+		tvSong.setText(musicInfo.musicName);
+		tvAblum.setText(musicInfo.artist);
+		imSong.setImageBitmap(MusicUtils.getArtwork(this, musicInfo.songId, musicInfo.albumId, true));
+	}
+
+	@Override
+	public void notifyMusic(MusicInfo musicInfo) {
+		if (this.musicInfo == null) {
+			this.musicInfo = musicInfo;
+			cbPlay.setChecked(!cbPlay.isChecked());
+		} else {
+			if (this.musicInfo._id != musicInfo._id) {
+				this.musicInfo = musicInfo;
+				playMusic();
+			}
+		}
+
+	}
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		musicPlayer.unBindServer();
 	}
 
 	@Override

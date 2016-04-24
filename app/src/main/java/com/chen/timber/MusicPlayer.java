@@ -1,6 +1,5 @@
 package com.chen.timber;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -18,14 +17,14 @@ public class MusicPlayer {
 	private static MusicPlayer musicPlayer;
 	private MusicInfc musicInfc;
 	private Context context;
-
+	private Intent intent;
+	private MyConnection conn;
 	private MusicPlayer(Context context) {
-		this.context = context;
-		MusicService musicService = new MusicService();
-		Intent intent = new Intent(context, MusicService.class);
-		((Activity) context).startService(intent);
-		MyConnection conn = new MyConnection();
-		((Activity) context).bindService(intent, conn, Context.BIND_AUTO_CREATE);
+		this.context = context.getApplicationContext();
+		intent = new Intent(context, MusicService.class);
+		this.context.startService(intent);
+		conn = new MyConnection();
+		this.context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
 		Log.i("MusicPlayer", "MusicPlayer: oncreate执行了");
 	}
 
@@ -54,6 +53,10 @@ public class MusicPlayer {
 
 	}
 
+	public void unBindServer() {
+		context.stopService(intent);
+		context.unbindService(conn);
+	}
 	class MyConnection implements ServiceConnection {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
