@@ -165,6 +165,9 @@ public class MusicUtils {
 		return bm;
 	}
 
+	public static Uri getAlbumArtUri(long paramInt) {
+		return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), paramInt);
+	}
 	private static Bitmap getDefaultArtwork(Context context) {
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inPreferredConfig = Bitmap.Config.RGB_565;

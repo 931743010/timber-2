@@ -1,5 +1,7 @@
 package com.chen.timber.fragment;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import com.chen.timber.adapter.SongRecyclerViewAdapter;
 import com.chen.timber.database.MusicDao;
 import com.chen.timber.moudle.MusicInfo;
 import com.chen.timber.view.DividerItemDecoration;
+import com.cocosw.bottomsheet.BottomSheet;
 
 import java.util.List;
 
@@ -51,7 +54,15 @@ public class SongFragment extends BaseFragment {
 		});
 		adapter.setOnPopClickListener(new SongRecyclerViewAdapter.onPopClickListener() {
 			@Override
-			public void onPopClick(int Position) {
+			public void onPopClick(int position) {
+				new BottomSheet.Builder((Activity) mContext).title(musicList.get(position).musicName).sheet(R.menu.menu_list_layout).listener(new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which) {
+
+						}
+					}
+				}).show();
 
 			}
 		});

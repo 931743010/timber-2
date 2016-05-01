@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.chen.timber.Service.MusicService;
 import com.chen.timber.intef.MusicInfc;
+import com.chen.timber.moudle.MusicInfo;
 
 /**
  * Created by chen on 2016/4/17.
@@ -19,13 +19,13 @@ public class MusicPlayer {
 	private Context context;
 	private Intent intent;
 	private MyConnection conn;
+	private MusicInfo mCurrentMusic;//当前播放的歌曲
 	private MusicPlayer(Context context) {
 		this.context = context.getApplicationContext();
 		intent = new Intent(context, MusicService.class);
 		this.context.startService(intent);
 		conn = new MyConnection();
 		this.context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
-		Log.i("MusicPlayer", "MusicPlayer: oncreate执行了");
 	}
 
 	public static MusicPlayer getInstance(Context context) {
@@ -37,8 +37,12 @@ public class MusicPlayer {
 		return musicPlayer;
 	}
 
-	public void play(String path) {
-		musicInfc.play(path);
+	public void play(MusicInfo musicInfo) {
+
+		if(musicInfo.data!=null){
+			musicInfc.play(musicInfo.data);
+		}
+
 	}
 
 	public void pause() {

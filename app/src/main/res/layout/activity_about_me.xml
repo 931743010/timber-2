@@ -7,6 +7,7 @@
               android:orientation="vertical"
               tools:context=".activity.AboutMeActivity">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tr_about_me"
         android:layout_width="match_parent"
@@ -16,22 +17,44 @@
         app:title="关于我"
         app:titleTextColor="#fff"></android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="50dp"
+        app:cardElevation="24dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="声明："
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="23sp"
-        />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="此软件是开源的，免费的\n使用中如有发现有问题\n请发送邮件至\nyclooper@163.com"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="23sp"
-        />
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="声明："
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="23sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="此软件是开源的，免费的使用中如有发现有问题请发送邮件至yclooper@163.com"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="23sp"
+                />F
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

@@ -8,8 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 	private MusicPlayer musicPlayer;
 	private MusicInfo musicInfo;
 	private NavigationView mNavigationView;
+	private ImageButton imNext;
 
 	@Override
 	protected void initView() {
@@ -54,6 +57,13 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 		tvAblum = getView(R.id.tv_main_album);
 		cbPlay = getView(R.id.cb_main_play);
 		tvSong = getView(R.id.tv_main_song);
+		imNext = getView(R.id.im_main_next);
+		imNext.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showToast("下一首歌曲");
+			}
+		});
 		cbPlay.setOnCheckedChangeListener(this);
 		mNavigationView = getView(R.id.navigationview);
 		mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -61,7 +71,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 			public boolean onNavigationItemSelected(MenuItem item) {
 				switch (item.getItemId()) {
 					case R.id.item_aout_me:
-						startActivity(new Intent(MainActivity.this,AboutMeActivity.class));
+						startActivity(new Intent(MainActivity.this, AboutMeActivity.class));
 						break;
 					case R.id.item_exit:
 						finish();
@@ -105,6 +115,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 		viewPager.setAdapter(pagerAdapter);
 		tabLayout.setupWithViewPager(viewPager);
 
+
 	}
 
 	@Override
@@ -116,11 +127,10 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 				musicPlayer.pause();
 			}
 		}
-
 	}
 
 	private void playMusic() {
-		musicPlayer.play(musicInfo.data);
+		musicPlayer.play(musicInfo);
 		tvSong.setText(musicInfo.musicName);
 		tvAblum.setText(musicInfo.artist);
 		imSong.setImageBitmap(MusicUtils.getArtwork(this, musicInfo.songId, musicInfo.albumId, true));
@@ -128,16 +138,21 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
 
 	@Override
 	public void notifyMusic(MusicInfo musicInfo) {
-		if (this.musicInfo == null) {
-			this.musicInfo = musicInfo;
-			cbPlay.setChecked(!cbPlay.isChecked());
-		} else {
-			if (this.musicInfo._id != musicInfo._id) {
-				this.musicInfo = musicInfo;
-				playMusic();
-			}
-		}
 
+		if (this.musicInfo != null) {
+
+			if (cbPlay.isChecked()) {
+				if (this.musicInfo._id != musicInfo._id) {
+					this.musicInfo=musicInfo;
+					playMusic();
+				}
+			} else {
+				cbPlay.setChecked(true);
+			}
+		}else {
+			this.musicInfo=musicInfo;
+			cbPlay.setChecked(true);
+		}
 	}
 
 	@Override

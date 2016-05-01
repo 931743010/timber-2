@@ -49,12 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@android:color/holo_red_dark">
+        android:background="@color/background">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
             android:orientation="horizontal"
             >
 
@@ -65,6 +64,7 @@
                 android:scaleType="fitCenter"/>
 
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -97,8 +97,19 @@
                 android:id="@+id/cb_main_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/selector_play"
+                android:button="@null"
+                android:checked="false"
+                android:foregroundTint="#434343"
+                />
+            <ImageButton
+                android:layout_gravity="center_vertical"
+                android:id="@+id/im_main_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/playbar_btn_next"
                 android:button="@null"
                 android:checked="false"
                 android:foregroundTint="#434343"

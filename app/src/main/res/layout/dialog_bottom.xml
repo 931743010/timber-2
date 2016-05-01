@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="歌曲：天涯"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:divider="@drawable/divider"
+        app:paddingStart="10dp"
+        app:showDividers="middle|beginning|end">
+
+        <TextView
+            android:id="@+id/tv_dialog_songer"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:drawableLeft="@drawable/lay_icn_artist"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="歌手"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:drawableLeft="@drawable/lay_icn_fav"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="添加到收藏夹"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:drawableLeft="@drawable/lay_icn_delete"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="删除"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_ring"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:drawableLeft="@drawable/lay_icn_ring"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="铃声"
+            android:textSize="16sp"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+</LinearLayout>
