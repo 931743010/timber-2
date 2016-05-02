@@ -11,6 +11,7 @@ import com.chen.timber.intef.MusicInfc;
 import com.chen.timber.util.ToastUtils;
 
 import java.io.IOException;
+import java.util.Timer;
 
 /**
  * Created by chen on 2016/4/18.
@@ -18,10 +19,12 @@ import java.io.IOException;
 public class MusicService extends Service{
 
 	private MediaPlayer mPlayer;
+	private Timer timer;
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mPlayer=new MediaPlayer();
+
 	}
 
 	public void play(String path) {
@@ -51,6 +54,18 @@ public class MusicService extends Service{
 	public void last() {
 
 	}
+
+
+	public void seekTo(int progress) {
+		mPlayer.seekTo(progress);
+	}
+	public int getDuration() {
+		return mPlayer.getDuration();
+	}
+
+	public int getCurrentPosition() {
+		return mPlayer.getCurrentPosition();
+	}
 	@Nullable
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -66,6 +81,26 @@ public class MusicService extends Service{
 		}
 	}
 	class MusicInfcBinder extends Binder implements MusicInfc {
+		@Override
+		public void seekTo(int progress) {
+			MusicService.this.seekTo(progress);
+		}
+
+		@Override
+		public int getDuration() {
+			return MusicService.this.getDuration();
+		}
+
+		@Override
+		public int getCurrentPosition() {
+			return MusicService.this.getCurrentPosition();
+		}
+
+		@Override
+		public boolean isPlay() {
+			return mPlayer.isPlaying();
+		}
+
 		@Override
 		public void play(String path) {
 			MusicService.this.play(path);

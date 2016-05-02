@@ -11,4 +11,12 @@ public interface MusicInfc {
 	void next(String path);
 
 	void last(String path);
+
+	boolean isPlay();
+
+	int getDuration();
+
+	int getCurrentPosition();
+
+	void seekTo(int progress);
 }

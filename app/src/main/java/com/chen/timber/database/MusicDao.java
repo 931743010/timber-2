@@ -92,6 +92,31 @@ public class MusicDao {
 		db.execSQL(sql);
 	}
 
+
+	public MusicInfo getMusicSongById(int id) {
+		Cursor cursor = db.rawQuery("select * from music_info where _id=?", new String[]{String.valueOf(id)});
+		MusicInfo music=null;
+		if(cursor.moveToNext()){
+			music = new MusicInfo();
+			music._id = cursor.getInt(cursor.getColumnIndex("_id"));
+			music.songId = cursor.getInt(cursor.getColumnIndex("songid"));
+			music.albumId = cursor.getInt(cursor.getColumnIndex("albumid"));
+			music.duration = cursor.getInt(cursor.getColumnIndex("duration"));
+			music.musicName = cursor.getString(cursor.getColumnIndex("musicname"));
+			music.artist = cursor.getString(cursor.getColumnIndex("artist"));
+			music.data = cursor.getString(cursor.getColumnIndex("data"));
+			music.folder = cursor.getString(cursor.getColumnIndex("folder"));
+			music.musicNameKey = cursor.getString(cursor.getColumnIndex("musicnamekey"));
+			music.artistKey = cursor.getString(cursor.getColumnIndex("artistkey"));
+			music.favorite = cursor.getInt(cursor.getColumnIndex("favorite"));
+		}
+		cursor.close();
+		return  music;
+	}
+	public List<MusicInfo> getFavMusicList(){
+		Cursor cursor = db.rawQuery("select * from music_info where favorite=?", new String[]{"1"});
+		return parseCursor(cursor);
+	}
 	/**
 	 * 数据库中是否有数据
 	 * @return

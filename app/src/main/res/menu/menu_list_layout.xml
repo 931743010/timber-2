@@ -4,8 +4,8 @@
 
     <item android:id="@+id/menu_love" android:title="添加到喜欢" android:icon="@drawable/lay_icn_fav"/>
     <item android:id="@+id/menu_delete" android:title="删除" android:icon="@drawable/lay_icn_delete"/>
-    <item android:id="@+id/menu_songer" android:title="分享" android:icon="@drawable/lay_icn_share"/>
+    <item android:id="@+id/menu_share" android:title="分享" android:icon="@drawable/lay_icn_share"/>
     <group android:id="@+id/helpgroup">
-        <item android:id="@+id/menu_make" android:title="铃声" android:icon="@drawable/lay_icn_ring"/>
+        <item android:id="@+id/menu_ring" android:title="铃声" android:icon="@drawable/lay_icn_ring"/>
     </group>
 </menu>

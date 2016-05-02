@@ -12,10 +12,10 @@
         <item
             android:icon="@drawable/ic_queue_music_black_36dp"
             android:id="@+id/item_music"
-            android:title="播放列表"/>
+            android:title="音乐列表"/>
 
         <item
-            android:id="@+id/item_music_list"
+            android:id="@+id/item_fav"
             android:icon="@drawable/ic_favorite_border_black_36dp"
             android:title="喜欢列表"/>
 
@@ -33,7 +33,7 @@
 
             <item
                 android:icon="@drawable/ic_person_outline_black_36dp"
-                android:id="@+id/item_aout_me"
+                android:id="@+id/item_about_me"
                 android:title="关于我"/>
 
             <item

@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.chen.timber.MusicPlayer;
 import com.chen.timber.R;
 import com.chen.timber.adapter.SongRecyclerViewAdapter;
 import com.chen.timber.database.MusicDao;
@@ -23,14 +22,12 @@ import java.util.List;
  */
 public class SongFragment extends BaseFragment {
 	private RecyclerView mRecyclerView;
-	private MusicPlayer musicPlayer;
 	private MusicDao musicDao;
 	private List<MusicInfo> musicList;
 	private MusicInfo currentMusicInfo;
 
 	@Override
 	protected View initView() {
-		musicPlayer = MusicPlayer.getInstance(mContext);
 		View view = View.inflate(mContext, R.layout.song_fragment_layout, null);
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.rcy_song);
 		return view;
@@ -54,12 +51,20 @@ public class SongFragment extends BaseFragment {
 		});
 		adapter.setOnPopClickListener(new SongRecyclerViewAdapter.onPopClickListener() {
 			@Override
-			public void onPopClick(int position) {
+			public void onPopClick(final int position) {
 				new BottomSheet.Builder((Activity) mContext).title(musicList.get(position).musicName).sheet(R.menu.menu_list_layout).listener(new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						switch (which) {
-
+							case R.id.menu_love:
+								musicDao.setFavoriteStateById(musicList.get(position)._id,1);
+								break;
+							case R.id.menu_delete:
+								break;
+							case R.id.menu_share:
+								break;
+							case R.id.menu_ring:
+								break;
 						}
 					}
 				}).show();
@@ -73,7 +78,5 @@ public class SongFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	public interface NotifyUi {
-		void notifyMusic(MusicInfo musicInfo);
-	}
+
 }

@@ -52,6 +52,7 @@
         android:background="@color/background">
 
         <LinearLayout
+            android:id="@+id/ll_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

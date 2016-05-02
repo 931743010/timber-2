@@ -12,7 +12,7 @@ public class TimberDBHelper extends SQLiteOpenHelper {
 	private static final String TABLE_ALBUM = " album_info";
 	private static final String TABLE_ARTIST = " artist_info";
 	private static final String TABLE_MUSIC = " music_info";
-	private static final String TABLE_FOLDER = " folder_info";
+	private static final String TABLE_PLAY_LIST = " play_list_info";
 	private static final String TABLE_FAVORITE = " favorite_info";
 	public static final String DATANAME = "timber.db";
 	private static SQLiteDatabase timberDB;
@@ -57,6 +57,9 @@ public class TimberDBHelper extends SQLiteOpenHelper {
 				+ " (_id integer,"
 				+ " songid integer, albumid integer, duration integer, musicname varchar(10), "
 				+ "artist char, data char, folder char, musicnamekey char, artistkey char, favorite integer)");
+//		db.execSQL("create table"
+//				+ TABLE_PLAY_LIST
+//				+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT, music_name char, number_of_tracks integer)");
 	}
 
 	@Override
